@@ -1,47 +1,49 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useEffect, useState } from 'react';
+import Image from './components/Image';
+import HexGrid from './components/HexGrid';
 
 function App() {
-    const [count, setCount] = useState(0);
+    // State handling clicked coordinates
+    const [clickedCoords, setClickedCoords] = useState([]); // array of clicked coords [row,col]
+
+    useEffect(() => {
+        // log to console when new coordinates are stored
+
+        console.log(clickedCoords);
+        // TODO: Send data to API for validation (TODO)
+        // E.g sendClickToAPI(clickedCoords)
+    }, [clickedCoords]);
+
+    const handleCellClick = ({ row, col }) => {
+        // update clicked coordinates state
+        setClickedCoords((prevClickedCoords) => [
+            ...clickedCoords,
+            { row, col },
+        ]);
+    };
 
     return (
-        <>
-            <div>
-                <a
-                    href='https://vitejs.dev'
-                    target='_blank'
-                >
-                    <img
-                        src={viteLogo}
-                        className='logo'
-                        alt='Vite logo'
-                    />
-                </a>
-                <a
-                    href='https://react.dev'
-                    target='_blank'
-                >
-                    <img
-                        src={reactLogo}
-                        className='logo react'
-                        alt='React logo'
-                    />
-                </a>
+        <div className='App p-4'>
+            <h1 className='text-2xl font-bold mb-4'>Where's the party?!</h1>
+            <div
+                id='image-container'
+                className='relative'
+            >
+                <Image
+                    id='game-image'
+                    src='/wherestheparty.png'
+                    alt='Game image'
+                    className='max-w-full max-h-full'
+                />
+                <HexGrid
+                    imageWidth={1024}
+                    imageHeight={1024}
+                    numRows={50}
+                    numCols={50}
+                    onCellClick={handleCellClick}
+                />
             </div>
-            <h1>Vite + React</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
+        </div>
     );
 }
 
