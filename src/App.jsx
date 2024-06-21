@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react';
 import Image from './components/Image';
 import HexGrid from './components/HexGrid';
+import { checkHit } from '../api';
 
 function App() {
     // State handling clicked coordinates
-    const [clickedCoords, setClickedCoords] = useState([]); // array of clicked coords [row,col]
+    const [hitCharacters, setHitCharacters] = useState([]);
 
-    useEffect(() => {
-        // log to console when new coordinates are stored
+    const handleCellClick = async (row, col) => {
+        // mock API call to check if click was a hit
+        const response = await checkHit(row, col);
 
-        console.log(clickedCoords);
-        // TODO: Send data to API for validation (TODO)
-        // E.g sendClickToAPI(clickedCoords)
-    }, [clickedCoords]);
-
-    const handleCellClick = ({ row, col }) => {
-        // update clicked coordinates state
-        setClickedCoords((prevClickedCoords) => [
-            ...clickedCoords,
-            { row, col },
-        ]);
+        // if so, place hit character in front end state, pass this state to hexgrid for styling
+        if (response.hit) {
+            setHitCharacters((prevHitCharacters) => [
+                ...prevHitCharacters,
+                response.character,
+            ]);
+        }
     };
 
     return (
@@ -41,6 +39,7 @@ function App() {
                     numRows={50}
                     numCols={50}
                     onCellClick={handleCellClick}
+                    hitCharacters={hitCharacters}
                 />
             </div>
         </div>
