@@ -2,3 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+/* isHit class rules */
+
+.isHit{
+    @apply opacity-70
+}
+
+.hitTopLeft{
+    @apply border-t-4 border-l-4 border-t-green-600 border-l-green-600 
+}
+
+.hitTopRight{
+    @apply border-t-4 border-r-4 border-t-green-600 border-r-green-600
+}
+
+.hitBottomLeft{
+    @apply border-b-4 border-l-4 border-b-green-600 border-l-green-600
+}
+
+.hitBottomRight{
+    @apply border-b-4 border-r-4 border-b-green-600 border-r-green-600
+}
+
+.hitTop{
+    @apply border-t-4 border-t-green-600
+}
+
+.hitRight{
+    @apply border-r-4 border-r-green-600
+}
+
+.hitBottom{
+    @apply border-b-4 border-b-green-600
+}
+
+.hitLeft{
+    @apply border-l-4 border-l-green-600
+}
+
+.hitMiddle{
+    @apply border-4 border-green-600
+}
