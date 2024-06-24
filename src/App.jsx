@@ -28,7 +28,6 @@ function App() {
                 className='relative'
             >
                 <Image
-                    id='game-image'
                     src='/wherestheparty.png'
                     alt='Game image'
                     className='max-w-full max-h-full'
