@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Image from './components/Image';
 import HexGrid from './components/HexGrid';
 import { checkHit } from '../api';
+import Status from './components/Status';
 
 function App() {
     // State handling clicked coordinates
@@ -24,23 +25,29 @@ function App() {
     return (
         <div className='App p-4'>
             <h1 className='text-2xl font-bold mb-4'>Where's the party?!</h1>
-            <div
-                id='image-container'
-                className='relative'
-            >
-                <Image
-                    src='/wherestheparty.png'
-                    alt='Game image'
-                    className='max-w-full max-h-full'
-                />
-                <HexGrid
-                    imageWidth={1024}
-                    imageHeight={1024}
-                    numRows={50}
-                    numCols={50}
-                    onCellClick={handleCellClick}
-                    hitCharacters={hitCharacters}
-                />
+
+            <div className='flex'>
+                <div className='w-1/4 pr-4'>
+                    <Status />
+                </div>
+                <div
+                    id='image-container'
+                    className='relative w-3/4'
+                >
+                    <Image
+                        src='/wherestheparty.png'
+                        alt='Game image'
+                        className='max-w-full max-h-full'
+                    />
+                    <HexGrid
+                        imageWidth={1024}
+                        imageHeight={1024}
+                        numRows={50}
+                        numCols={50}
+                        onCellClick={handleCellClick}
+                        hitCharacters={hitCharacters}
+                    />
+                </div>
             </div>
         </div>
     );
