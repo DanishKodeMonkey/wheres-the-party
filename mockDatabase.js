@@ -10,6 +10,7 @@ export const characters = [
             { row: 29, col: 20 },
         ],
         isHit: false,
+        avatar: './public/wizard.jpg',
     },
     {
         name: 'warrior',
@@ -22,6 +23,7 @@ export const characters = [
             { row: 39, col: 40 },
         ],
         isHit: false,
+        avatar: './public/warrior.jpg',
     },
     {
         name: 'bard',
@@ -34,5 +36,6 @@ export const characters = [
             { row: 19, col: 10 },
         ],
         isHit: false,
+        avatar: './public/bard.jpg',
     },
 ];
