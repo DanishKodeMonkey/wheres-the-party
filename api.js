@@ -17,3 +17,16 @@ export const checkHit = async (row, col) => {
         return { hit: false };
     }
 };
+
+export const fetchCharacterDetails = async () => {
+    // simulate delay of API call
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // extract character names and image paths
+    const characterDetails = initialCharacters.map(({ name, avatar }) => ({
+        name,
+        avatar,
+    }));
+    return characterDetails;
+};
