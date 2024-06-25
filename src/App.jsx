@@ -8,6 +8,7 @@ function App() {
     const [hitCharacters, setHitCharacters] = useState([]);
 
     const handleCellClick = async (row, col) => {
+        console.log('clicked: ', row, col);
         // mock API call to check if click was a hit
         const response = await checkHit(row, col);
 
