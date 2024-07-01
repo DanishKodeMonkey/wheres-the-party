@@ -1,14 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Timer = ({ start }) => {
+const Timer = ({ start, onStop }) => {
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setSeconds((prevSeconds) => prevSeconds + 1);
-        }, 1000);
+        let timer;
+
+        if (start) {
+            timer = setInterval(() => {
+                setSeconds((prevSeconds) => prevSeconds + 1);
+            }, 1000);
+        } else {
+            clearInterval(timer);
+            onStop(seconds); // Notify App component with final time
+        }
+
         return () => clearInterval(timer);
-    }, []);
+    }, [start, onStop]);
 
     return (
         <div>

@@ -9,12 +9,19 @@ function App() {
     // State handling clicked coordinates
     const [hitCharacters, setHitCharacters] = useState([]);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [gameWon, setGameWon] = useState(false);
+    const [finalTime, setFinalTime] = useState(null);
 
     const handleImageLoad = () => {
         setIsImageLoaded(true);
         console.log('Image loaded');
     };
 
+    useEffect(() => {
+        if (hitCharacters.length === 3) {
+            handleGameWin();
+        }
+    }, [hitCharacters]);
     const handleCellClick = async (row, col) => {
         console.log('clicked: ', row, col);
         // mock API call to check if click was a hit
@@ -29,13 +36,24 @@ function App() {
         }
     };
 
+    const handleGameWin = (time) => {
+        setGameWon(time);
+        setFinalTime(time);
+        console.log(gameWon, finalTime);
+    };
+
     return (
         <div className='App p-4 text-center'>
             <h1 className='text-2xl font-bold mb-4'>Where's the party?!</h1>
-            {isImageLoaded && <Timer />}
+            {isImageLoaded && !gameWon && (
+                <Timer
+                    start={!gameWon}
+                    onStop={handleGameWin}
+                />
+            )}
             <div className='flex'>
                 <div className='w-1/4 pr-4'>
-                    <Status />
+                    <Status hitCharacters={hitCharacters} />
                 </div>
 
                 <div
@@ -58,6 +76,13 @@ function App() {
                     />
                 </div>
             </div>
+            {gameWon && (
+                <div className='absolute inset-0 flex items-center justify-center z-10'>
+                    <p className='text-9xl text-white bg-slate-500 bg-opacity-75 p-8'>
+                        YOU WIN! Time: {finalTime} seconds
+                    </p>
+                </div>
+            )}
         </div>
     );
 }
