@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchCharacterDetails } from '../../api';
 
-const Status = () => {
+const Status = ({ hitCharacters }) => {
     const [characterDetails, setCharacterDetails] = useState([]);
 
     useEffect(() => {
@@ -11,6 +11,16 @@ const Status = () => {
         };
         getCharacters();
     }, []);
+
+    useEffect(() => {
+        const updadtedCharacters = characterDetails.map((character) => {
+            const isHit = hitCharacters.some(
+                (hitChar) => hitChar.name === character.name
+            );
+            return { ...character, isHit };
+        });
+        setCharacterDetails(updadtedCharacters);
+    }, [hitCharacters]);
 
     return (
         <div className='p-4 bg-gray-100 rounded-lg shadow-md h-full'>
@@ -26,10 +36,16 @@ const Status = () => {
                         <img
                             src={character.avatar}
                             alt={character.name}
-                            className='w-1/3 h-1/3 rounded-full mr-4'
+                            className={`w-1/3 h-1/3 rounded-full mr-4 ${
+                                character.isHit ? 'red-tint' : ''
+                            }`}
                         />
                         <div>
-                            <span className='text-3xl font-semibold'>
+                            <span
+                                className={`text-3xl font-semibold ${
+                                    character.isHit ? 'red-tint' : ''
+                                }`}
+                            >
                                 {character.name}
                             </span>
                         </div>

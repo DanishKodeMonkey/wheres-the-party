@@ -6,6 +6,10 @@
 
 /* isHit class rules */
 
+.red-tint{
+    filter: brightness(0.5) saturate(2) hue-rotate(0deg) contrast(1.5) sepia(1) saturate(8) hue-rotate(-50deg)
+}
+
 .isHit{
     @apply opacity-70
 }
