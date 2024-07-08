@@ -11,15 +11,17 @@ function App() {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [gameWon, setGameWon] = useState(false);
     const [finalTime, setFinalTime] = useState(null);
+    const [startTimer, setStartTimer] = useState(false);
 
     const handleImageLoad = () => {
-        setIsImageLoaded(true);
+        setIsImageLoaded(true); // render timer
+        setStartTimer(true); // start timer
         console.log('Image loaded');
     };
 
     useEffect(() => {
         if (hitCharacters.length === 3) {
-            handleGameWin();
+            setStartTimer(false);
         }
     }, [hitCharacters]);
     const handleCellClick = async (row, col) => {
@@ -37,8 +39,9 @@ function App() {
     };
 
     const handleGameWin = (time) => {
-        setGameWon(time);
         setFinalTime(time);
+        setGameWon(true);
+
         console.log(gameWon, finalTime);
     };
 
@@ -47,7 +50,7 @@ function App() {
             <h1 className='text-2xl font-bold mb-4'>Where's the party?!</h1>
             {isImageLoaded && !gameWon && (
                 <Timer
-                    start={!gameWon}
+                    start={startTimer}
                     onStop={handleGameWin}
                 />
             )}
@@ -79,7 +82,8 @@ function App() {
             {gameWon && (
                 <div className='absolute inset-0 flex items-center justify-center z-10'>
                     <p className='text-9xl text-white bg-slate-500 bg-opacity-75 p-8'>
-                        YOU WIN! Time: {finalTime} seconds
+                        YOU WIN! <hr />
+                        Time: {finalTime} seconds
                     </p>
                 </div>
             )}

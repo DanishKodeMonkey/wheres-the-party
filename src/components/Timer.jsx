@@ -10,13 +10,13 @@ const Timer = ({ start, onStop }) => {
             timer = setInterval(() => {
                 setSeconds((prevSeconds) => prevSeconds + 1);
             }, 1000);
-        } else {
+        } else if (!start && seconds > 0) {
             clearInterval(timer);
             onStop(seconds); // Notify App component with final time
         }
 
         return () => clearInterval(timer);
-    }, [start, onStop]);
+    }, [start, seconds, onStop]);
 
     return (
         <div>
