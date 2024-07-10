@@ -61,7 +61,7 @@ function App() {
 
                 <div
                     id='image-container'
-                    className='relative w-3/4'
+                    className='relative w-2/6'
                 >
                     <Image
                         src='/wherestheparty.png'
