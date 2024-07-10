@@ -5,6 +5,11 @@ import { checkHit } from '../api';
 import Status from './components/Status';
 import Timer from './components/Timer';
 
+/* Eureka to investigate
+
+instead of hex grid, use viewport coordinates standardised. Much less headache?
+*/
+
 function App() {
     // State handling clicked coordinates
     const [hitCharacters, setHitCharacters] = useState([]);
