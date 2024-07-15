@@ -17,6 +17,7 @@ function App() {
     const [gameWon, setGameWon] = useState(false);
     const [finalTime, setFinalTime] = useState(null);
     const [startTimer, setStartTimer] = useState(false);
+    const [clickCoordinates, setClickCoordinates] = useState([]);
 
     const handleImageLoad = () => {
         setIsImageLoaded(true); // render timer
@@ -29,10 +30,15 @@ function App() {
             setStartTimer(false);
         }
     }, [hitCharacters]);
-    const handleCellClick = async (row, col) => {
-        console.log('clicked: ', row, col);
+
+    const handleImageClick = async (e) => {
+        const rect = e.target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        setClickCoordinates([...clickCoordinates, { x, y }]);
         // mock API call to check if click was a hit
-        const response = await checkHit(row, col);
+        const response = await checkHit(Math.round(x), Math.round(y));
 
         // if so, place hit character in front end state, pass this state to hexgrid for styling
         if (response.hit) {
@@ -67,6 +73,7 @@ function App() {
                 <div
                     id='image-container'
                     className='relative w-2/6'
+                    onClick={handleImageClick}
                 >
                     <Image
                         src='/wherestheparty.png'
@@ -74,14 +81,18 @@ function App() {
                         className='max-w-full max-h-full'
                         onLoad={handleImageLoad}
                     />
-                    <HexGrid
-                        imageWidth={1024}
-                        imageHeight={1024}
-                        numRows={50}
-                        numCols={50}
-                        onCellClick={handleCellClick}
-                        hitCharacters={hitCharacters}
-                    />
+                    {clickCoordinates.map((coord, index) => (
+                        <div
+                            key={index}
+                            className='absolute rounded-full border-4 border-red-600'
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                                left: `${coord.x - 20}px`,
+                                top: `${coord.y - 20}px`,
+                            }}
+                        ></div>
+                    ))}
                 </div>
             </div>
             {gameWon && (
