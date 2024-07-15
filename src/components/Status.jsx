@@ -13,13 +13,13 @@ const Status = ({ hitCharacters }) => {
     }, []);
 
     useEffect(() => {
-        const updadtedCharacters = characterDetails.map((character) => {
+        const updatedCharacters = characterDetails.map((character) => {
             const isHit = hitCharacters.some(
                 (hitChar) => hitChar.name === character.name
             );
             return { ...character, isHit };
         });
-        setCharacterDetails(updadtedCharacters);
+        setCharacterDetails(updatedCharacters);
     }, [hitCharacters]);
 
     return (
