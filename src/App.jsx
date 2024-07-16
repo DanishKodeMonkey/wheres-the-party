@@ -38,6 +38,7 @@ function App() {
 
         setClickCoordinates([...clickCoordinates, { x, y }]);
         // mock API call to check if click was a hit
+        console.log(Math.round(x), Math.round(y));
         const response = await checkHit(Math.round(x), Math.round(y));
 
         // if so, place hit character in front end state, pass this state to hexgrid for styling
